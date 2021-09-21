@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
+pragma experimental ABIEncoderV2;
 
 contract BoolType {
   bool a = true;
@@ -46,5 +47,33 @@ contract TypeArray {
   uint[] memory a = new uint[](6);
   a[6] = 8;
 
+  bytes memory b = new bytes(5);
+  b[0] = '0';
 
+  string memory s = 'keyword';
+}
+
+contract Structs {
+  struct Author {
+    address addr;
+    string name;
+  }
+
+  Author[] public authors;
+  constructor() public {}
+
+  function getAuthor() public returns (address, string memory) {
+    address authorAddr = 0x12938102830;
+    authors.push(Author(authorAddr, 'blockchain_lab'));
+    // return (authors[0].addr, authors[0].name);
+    return authors[0];
+  }
+}
+
+contract MappingExample {
+  mapping(address => uint) public balances;
+
+  function update(uint newBalance) public {
+    balances[msg.sender] = newBalance;
+  }
 }
